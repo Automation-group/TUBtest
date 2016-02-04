@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>graphView</class>
+ <widget class="QWidget" name="graphView">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>432</width>
+    <height>351</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="0" column="0">
+    <widget class="QGroupBox" name="gbUinitForce">
+     <property name="title">
+      <string>Нагрузка</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0" rowspan="3">
+       <widget class="QLCDNumber" name="lcdForce"/>
+      </item>
+      <item row="0" column="1">
+       <widget class="QRadioButton" name="rbAdc">
+        <property name="text">
+         <string>ед. ацп </string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QRadioButton" name="rbNewton">
+        <property name="text">
+         <string>Ньютоны </string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QRadioButton" name="rbKgf">
+        <property name="text">
+         <string>кгс</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+     <zorder>rbKgf</zorder>
+     <zorder>rbNewton</zorder>
+     <zorder>rbAdc</zorder>
+     <zorder>lcdForce</zorder>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QwtPlot" name="qwtGraph"/>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QwtPlot</class>
+   <extends>QFrame</extends>
+   <header>qwt_plot.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
