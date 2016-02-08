@@ -15,7 +15,7 @@ file(GLOB QTRESOURCES ../rc/*.qrc)
 file(GLOB WIN_RESOURCES ../rc/*.rc)
 
 # Поиск библиотек
-find_package (Qt4 COMPONENTS QtCore QtGui REQUIRED)
+find_package (Qt4 COMPONENTS QtCore QtGui)
 find_package(Qwt REQUIRED)
 find_package(lfDevices REQUIRED)
 find_package(QextSerialPort REQUIRED)

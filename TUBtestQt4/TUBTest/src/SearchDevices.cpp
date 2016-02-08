@@ -57,7 +57,8 @@ bool SearchDevices::SearchTUB(QString port)
   tubSP.setStopBits(STOP_2);
   //tubSP.setFlowControl(FLOW_HARDWARE);
   tubSP.setFlowControl(FLOW_OFF);
-  tubSP.setTimeout(0, 500);
+  tubSP.setTimeout(0, 500); // for linux
+  //tubSP.setTimeout(100); // for windows
   tubSP.setPortName(port);
   
   if (!tubSP.open(QIODevice::ReadWrite | QIODevice::Unbuffered)) {

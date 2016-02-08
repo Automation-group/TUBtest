@@ -1,40 +1,18 @@
-# Сборка проекта
-# 1. Необходимо получить и собрать QExtSerialPort
-# linux
-cd /tmp
-hg clone http://bitbucket.org/lexaficus/qextserialport
-cd qextserialport
-qmake-qt4
-make -j4
-# windows
-cd qextserialport\src
-qmake
-mingw32-make -j4
+=========================================================================
+Сборка проекта под Linux
+>> ./build.sh
+* файл build.sh нужно сделать исполняемым
 
-# 2. Необходимо получить и собрать QlfDevices
-# linux
-cd /tmp
-hg clone http://bitbucket.org/lexaficus/qlfdevices
-cd qlfdevices
-mkdir build
-cd build
-cmake ..
-make -j4
-# windows
-cd qlfdevices
-cmake -G "MinGW Makefiles"
-mingw32-make -j4
+=========================================================================
+Сборка проекта под Windows
+>> build.bat
 
-# 3. Собрать TUBTest
-# linux
-cd /tmp 
-svn co https://srvlab5l/svn/aapavlyukov/Релаксация/RxStep/trunk/RxStep
-cd TUBTest
-mkdir build
-cd build
-cmake -DQLFDEVICES_DIR=../../qlfdevices/ -DQEXTSERIALPORT_DIR=../../qextserialport/ .
-make -j4
-# windows
-cd TUBtest
-cmake -G "MinGW Makefiles"
-mingw32-make -j4
+* для сборки необходма установка последней версии QT4
+* небходимо заменить папку qextserialport на qextserialport_for_windows
+* для правильной сборки проекта необходимо скачать исходники
+  qwt-5.2.3 в корень проекта
+* в файле TUBtest/src/MainWindow.cpp необходимо закоментировать строки
+с комментариями  // for windows и раскомментировать строки с комментариями
+// for linux
+* для работы собранной программы необходимо скопировать библиотеки .dll в
+папку /build

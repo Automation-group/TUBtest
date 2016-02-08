@@ -38,9 +38,9 @@ MainWindow::MainWindow() :
   tubSP.setParity(PAR_NONE);
   tubSP.setStopBits(STOP_2);
   tubSP.setFlowControl(FLOW_OFF);
-  tubSP.setTimeout(0, 500);
-  //tubSP.setTimeout(100);
-  //tubSP.setQueryMode(QextSerialPort::Polling);
+  tubSP.setTimeout(0, 500); // for linux
+  //tubSP.setTimeout(100); // for windows
+  //tubSP.setQueryMode(QextSerialPort::Polling); // for window
   
   graphView = new Graph();
   
