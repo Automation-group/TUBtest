@@ -40,7 +40,7 @@ MainWindow::MainWindow() :
   tubSP.setFlowControl(FLOW_OFF);
   tubSP.setTimeout(0, 500); // for linux
   //tubSP.setTimeout(100); // for windows
-  //tubSP.setQueryMode(QextSerialPort::Polling); // for window
+  //tubSP.setQueryMode(QextSerialPort::Polling); // for windows
   
   graphView = new Graph();
   

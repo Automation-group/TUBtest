@@ -1,6 +1,6 @@
 if(UNIX)
 find_path(QWT_INCLUDE_DIR qwt.h
-../../qwt-5.2.3/src/
+/usr/include/qwt-qt4
 ${QWT_INCLUDE_DIR}
 ${QWT_DIR}
 )
@@ -8,8 +8,6 @@ endif(UNIX)
 
 if(WIN32)
 find_path(QWT_INCLUDE_DIR NAMES qwt.h PATHS
-#/usr/include
-#/usr/local/include
 ../../qwt-5.2.3/src/
 "$ENV{LIB_DIR}/include"
 "$ENV{INCLUDE}"
@@ -28,20 +26,21 @@ else(ENABLE_QT5)
   set(QWT_LIBRARY_NAMES qwt qwt6 qwt5 qwt-qt4 qwt6-qt4 qwt5-qt4)
 endif(ENABLE_QT5)
 endif(WIN32)
+if(UNIX)
+  set(QWT_LIB_NAME qwt-qt4)
+endif(UNIX)
 
 if(UNIX)
 find_library(QWT_LIBRARY ${QWT_LIB_NAME}
-../../qwt-6.1.0/
-${QWT_LIB_DIR}/lib
-${QWT_DIR}
+${QWT_LIB_DIR}
+${QWT_DIR}/build
+${QWT_DIR}/lib
 )
 endif(UNIX)
 
 if(WIN32)
 find_library(QWT_LIBRARY NAMES ${QWT_LIBRARY_NAMES}
 PATHS
-#/usr/lib
-#/usr/local/lib
 ../../qwt-5.2.3/lib
 "$ENV{LIB_DIR}/lib"
 "$ENV{LIB}"
