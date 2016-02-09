@@ -87,7 +87,6 @@ bool SearchDevices::SearchTUB(QString port)
 {
   qDebug() << "open port:" << port; 	
   bool ret = 0; 
-  port = "COM3";
   QextSerialPort tubSP;
   
   tubSP.setBaudRate(BAUD115200);
@@ -95,9 +94,9 @@ bool SearchDevices::SearchTUB(QString port)
   tubSP.setParity(PAR_NONE);
   tubSP.setStopBits(STOP_2);
   tubSP.setFlowControl(FLOW_OFF);
-  //tubSP.setTimeout(0, 500); // for linux
-  tubSP.setTimeout(100); // for windows
-  tubSP.setQueryMode(QextSerialPort::Polling); // for windows
+  tubSP.setTimeout(0, 500); // for linux
+  //tubSP.setTimeout(100); // for windows
+  //tubSP.setQueryMode(QextSerialPort::Polling); // for windows
   tubSP.setPortName(port);
   
   //tubSP.open(QIODevice::ReadWrite | QIODevice::Unbuffered);
