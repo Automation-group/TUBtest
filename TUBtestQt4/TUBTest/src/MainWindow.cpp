@@ -18,7 +18,6 @@ QString MainWindow::osName() {
 #if defined(Q_OS_MAC)
     return QLatin1String("osx");
 #elif defined(Q_OS_WIN)
-    #define tubSP.setTimeout(0, 500); tubSP.setTimeout(100);
     return QLatin1String("windows");
 #elif defined(Q_OS_LINUX)
     return QLatin1String("linux");
@@ -50,8 +49,9 @@ MainWindow::MainWindow() :
   tubSP.setParity(PAR_NONE);
   tubSP.setStopBits(STOP_2);
   tubSP.setFlowControl(FLOW_OFF);
-  tubSP.setTimeout(0, 500);
-  //tubSP.setQueryMode(QextSerialPort::Polling);
+  tubSP.setTimeout(0, 500); // for linux
+  //tubSP.setTimeout(100); // for windows
+  //tubSP.setQueryMode(QextSerialPort::Polling); // for windows
     
   graphView = new Graph();
   

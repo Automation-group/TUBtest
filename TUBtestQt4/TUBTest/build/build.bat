@@ -2,7 +2,7 @@
 :: builds for windows
 
 :: built qextserialport
-cd ../../qextserialport_for_windows/src/
+cd ../../qextserialport/src/
 qmake
 mingw32-make -j8
 
