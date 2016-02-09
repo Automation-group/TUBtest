@@ -20,6 +20,7 @@ public:
 	
 protected:
 	void closeEvent(QCloseEvent *event);
+	QString osName();
 	
 private Q_SLOTS:
 	void on_pbOpen_clicked();

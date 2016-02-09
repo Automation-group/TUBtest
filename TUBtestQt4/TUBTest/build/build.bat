@@ -2,8 +2,7 @@
 :: builds for windows
 
 :: built qextserialport
-:: qextserialport_for_windows rename to qextserialport
-cd ../../qextserialport/src/
+cd ../../qextserialport_for_windows/src/
 qmake
 mingw32-make -j8
 

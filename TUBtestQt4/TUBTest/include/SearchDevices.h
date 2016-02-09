@@ -14,6 +14,7 @@ class SearchDevices
   
   protected:
     bool SearchTUB(QString port);
+    QString osName();
 };
 
 #endif /*SEARCHDEVICES_H_*/

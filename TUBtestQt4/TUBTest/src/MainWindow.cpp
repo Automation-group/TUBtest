@@ -13,6 +13,18 @@
 #include "../include/Graph.h"
 #include "../include/SearchDevices.h"
 
+// Определение операционной системы
+QString MainWindow::osName() {
+#if defined(Q_OS_MAC)
+    return QLatin1String("osx");
+#elif defined(Q_OS_WIN)
+    #define tubSP.setTimeout(0, 500); tubSP.setTimeout(100);
+    return QLatin1String("windows");
+#elif defined(Q_OS_LINUX)
+    return QLatin1String("linux");
+#endif
+}
+
 float timeS = 0; // msec
 
 MainWindow::MainWindow() :
@@ -38,10 +50,9 @@ MainWindow::MainWindow() :
   tubSP.setParity(PAR_NONE);
   tubSP.setStopBits(STOP_2);
   tubSP.setFlowControl(FLOW_OFF);
-  tubSP.setTimeout(0, 500); // for linux
-  //tubSP.setTimeout(100); // for windows
-  //tubSP.setQueryMode(QextSerialPort::Polling); // for windows
-  
+  tubSP.setTimeout(0, 500);
+  //tubSP.setQueryMode(QextSerialPort::Polling);
+    
   graphView = new Graph();
   
   loadSettings();
@@ -85,9 +96,10 @@ void MainWindow::loadSettings()  {
   
   // порт
   QString port = settings_read->value("settings/port").value<QString>();
-  if (port == "")
-    ui.leSerialPortName->setText("/dev/ttyUSB0"); // for Linux
-    //ui.leSerialPortName->setText("COM4"); // for Windows
+  if (port == "") {
+    if(osName() == "linux") ui.leSerialPortName->setText("/dev/ttyUSB0");
+    if(osName() == "windows") ui.leSerialPortName->setText("COM4");
+  }
   else ui.leSerialPortName->setText(port);
   
   // рабочая директория
