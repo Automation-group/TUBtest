@@ -67,7 +67,7 @@ void MainWindow::on_pbSearchDevices_clicked() {
       SearchDevices shDevices;
       shDevices.SearchDev(&portTUB);
 
-      qDebug() << "PortTUB: " << portTUB;
+      qDebug() << "Port TUB: " << portTUB;
       if (portTUB == "") {
 	QMessageBox msgBox;
 	msgBox.setText(QString::fromUtf8("Устойство ACC не было найдено."));

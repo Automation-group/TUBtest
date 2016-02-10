@@ -8,6 +8,7 @@
 #include <QRegExp>
 #include <QThread>
 
+// Функция задержки для поиска порта в windows
 struct MyThread : QThread {
 	static void sleep(int t) {
 		QThread::sleep(t);
@@ -40,11 +41,11 @@ void SearchDevices::SearchDev(QString *portTUB)
   QString ports;
   QString buffer;
   ports = QString::fromUtf8(process.readAllStandardOutput());
-  
   process.close();
-  process.waitForFinished();
-  MyThread::sleep(1);
-  //qDebug() << ports;
+  process.waitForFinished(); // ожидание до полного завершения process
+  
+  // Задрежка для корректного поиска порта
+  if(osName() == "windows") MyThread::sleep(1);
   
   // Определение портов отвечающих TUB
   int sizeBuffer = 0;
@@ -53,29 +54,24 @@ void SearchDevices::SearchDev(QString *portTUB)
     buffer[i-sizeBuffer] = ports[i];
     if (ports[i]=='\n'){
       QString portBuf = buffer;
-	  //qDebug() << portBuf.remove(QRegExp("[\n\t\r 0123456789:]"));
-      //qDebug() << QString::fromUtf8(buffer);
 	  
-	  if (osName()=="linux" && portBuf.remove(QRegExp("[\n\t\r 0123456789]"))=="ttyUSB") {
-		QString portDev = "/dev/" + buffer.remove(QRegExp("[\n\t\r ]"));
-		//qDebug() << portDev;
-		/*if (*portSMD == "" && portDev!=*portTUB && SearchSMD(portDev))
-		  *portSMD = portDev;
-		if (*portTUB == "" && portDev!=*portSMD && SearchTUB(portDev))
-		  *portTUB = portDev;*/
-		if (*portTUB == "" && SearchTUB(portDev))
-		  *portTUB = portDev;
+      // Поиск портов в linux
+      if (osName()=="linux" && portBuf.remove(QRegExp("[\n\t\r 0123456789]"))=="ttyUSB") {
+	QString portDev = "/dev/" + buffer.remove(QRegExp("[\n\t\r ]"));
+	//qDebug() << portDev;
+	if (*portTUB == "" && SearchTUB(portDev)) *portTUB = portDev;
       }
-	  if (osName()=="windows") {
-		 QRegExp rx("(COM\\d+)");
-		 int pos = rx.indexIn(portBuf, 0);
-		 if (pos != -1) {
-		   QString portDev = rx.cap(1); 
-		   //qDebug() << portDev; 
-		   if (*portTUB == "" && SearchTUB(portDev))
-		   *portTUB = portDev;		  
-		 }
-	  }
+      
+      // Поиск портов в windows
+      if (osName()=="windows") {
+	QRegExp rx("(COM\\d+)");
+	int pos = rx.indexIn(portBuf, 0);
+	if (pos != -1) {
+	  QString portDev = rx.cap(1); 
+	  //qDebug() << portDev; 
+	  if (*portTUB == "" && SearchTUB(portDev)) *portTUB = portDev;		  
+	}
+      }
 	  
       sizeBuffer = i;
       buffer = "";
@@ -85,7 +81,6 @@ void SearchDevices::SearchDev(QString *portTUB)
 
 bool SearchDevices::SearchTUB(QString port)
 {
-  qDebug() << "open port:" << port; 	
   bool ret = 0; 
   QextSerialPort tubSP;
   
