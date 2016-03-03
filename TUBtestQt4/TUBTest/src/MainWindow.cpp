@@ -273,10 +273,12 @@ void MainWindow::on_pbWriteRange_clicked() {
   QlfTUB::Range(ui.sbMinimum->value(), ui.sbMaximum->value()));
 }
 
+// Запуск непрерывного режима
 void MainWindow::on_pbStart_clicked() {
   if (tub) tub->run(ui.sbInterval->value());
 }
 
+// Остановка непрерывного режима
 void MainWindow::on_pbStop_clicked() {
   if (tub) tub->stop();
 }
@@ -332,6 +334,7 @@ void MainWindow::on_pbSave_clicked() {
 // Выбран режим калибровки
 void MainWindow::on_pbCalibrationMode_clicked() {
   if(messageQuestion()) {
+    if(tub) tub->stop();
     resultsBrowserCalibrationInfo();
     
     ui.pbCalibrationMode->setEnabled(0);
@@ -349,6 +352,7 @@ void MainWindow::on_pbCalibrationMode_clicked() {
 // Выбран режим поверки
 void MainWindow::on_pbVerificationMode_clicked() {
   if(messageQuestion()) {
+    if(tub) tub->stop();
     resultsBrowserVerificationInfo();
     
     ui.pbCalibrationMode->setEnabled(1);
